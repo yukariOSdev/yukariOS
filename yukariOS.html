@@ -8,11 +8,6 @@
 <title>yukariOS</title>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 415.55643 351.356'%3E%3Crect x='-40' y='-40' width='500' height='440' fill='%2305070d'/%3E%3Cg transform='translate(-32.09679,-4.447)'%3E%3Cpath fill='%23a33cf0' d='M220.80018,131.08659c24.05356,9.88178 108.7105,44.66121 143.66576,59.02179c9.45434,3.88412 17.01109,17.16055 19.57441,33.21468c6.28722,39.37656 17.53853,109.84407 20.28255,127.02952c1.19106,7.45978 -15.75828,7.20588 -40.09922,-2.79398c-41.9201,-17.22195 -102.36334,-42.05365 -120.79419,-49.62547c-10.65038,-4.37541 -23.22914,-17.81367 -25.36246,-31.1746c-5.43392,-34.0328 -15.53991,-97.32654 -18.86273,-118.13745c-2.0765,-13.00475 9.21039,-22.62288 21.59589,-17.53449z'/%3E%3Cpath fill='%23a33cf0' d='M282.18987,146.07959c-8.47983,19.29322 -34.27017,77.97103 -48.13753,109.52188c-5.44419,12.38653 -21.01353,22.20519 -32.42438,23.74377c-19.74688,2.66255 -84.50606,11.39448 -129.4195,17.45046c-26.07901,3.51639 -42.54116,-0.52621 -39.50151,-7.44194c7.00257,-15.93214 35.71597,-81.26049 51.76075,-117.76538c6.54154,-14.88333 17.21132,-25.81606 27.34076,-27.18188c37.45124,-5.04985 128.15319,-17.2798 153.92432,-20.75462c13.2699,-1.78932 21.75621,10.3714 16.4571,22.42771z'/%3E%3Cpath fill='%237a1fd0' d='M236.98949,228.9135c-24.05351,-9.88178 -108.71059,-44.66129 -143.66585,-59.02187c-9.45434,-3.88412 -17.01101,-17.16061 -19.57433,-33.21473c-6.28722,-39.37656 -17.53847,-109.84401 -20.28249,-127.02946c-1.19111,-7.45972 15.75816,-7.20593 40.0991,2.79387c41.9201,17.22195 102.36327,42.05377 120.79417,49.62558c10.65039,4.37541 23.22922,17.81367 25.36254,31.17459c5.43392,34.03281 15.53985,97.32654 18.86267,118.13745c2.07644,13.00475 -9.21033,22.62288 -21.59582,17.53458z'/%3E%3Cpath fill='%237a1fd0' d='M197.81017,203.81599c8.47983,-19.29322 34.27012,-77.97101 48.13747,-109.52185c5.44419,-12.38653 21.01361,-22.20522 32.42446,-23.7438c19.74696,-2.66255 84.50606,-11.39454 129.41951,-17.45052c26.07902,-3.51633 42.54105,0.52634 39.50146,7.44202c-7.00257,15.93214 -35.71594,81.26049 -51.76072,117.76538c-6.54154,14.88333 -17.21133,25.81603 -27.34077,27.18185c-37.45124,5.04985 -128.15329,17.27988 -153.92437,20.7547c-13.26989,1.78926 -21.75608,-10.37148 -16.45705,-22.42779z'/%3E%3C/g%3E%3C/svg%3E">
 <style>
-/* ============================================================
-   yukariOS — 共通スタイル
-   方針: 角丸ゼロ / 高密度 / 処理速度優先 / 泡(グラス)テクスチャは要所のみ
-   ============================================================ */
-
 :root{
   --bg:      #05070d;
   --panel:   rgba(14, 18, 30, .78);
@@ -27,13 +22,12 @@
   --danger:  #ff4d5e;
   --ok:      #35e08a;
   --warn:    #ffc043;
-  --tb-h:    40px;   /* タスクバー高さ */
-  --ttl-h:   30px;   /* タイトルバー高さ */
+  --tb-h:    40px;   /* taskBarHeight */
+  --ttl-h:   30px;   /* titleBarHeight */
   --fs:      13px;
   --font:    "Segoe UI","Yu Gothic UI","Meiryo",system-ui,sans-serif;
   --mono:    "Consolas","BIZ UDGothic","MS Gothic",monospace;
 }
-
 *{ box-sizing:border-box; border-radius:0 !important; }
 html,body{ height:100%; margin:0; padding:0; overflow:hidden; }
 body{
@@ -44,16 +38,14 @@ body{
 }
 ::selection{ background:var(--accent); color:#fff; }
 
-/* ---------- スクロールバー ---------- */
+/* scroll */
 ::-webkit-scrollbar{ width:11px; height:11px; }
 ::-webkit-scrollbar-track{ background:rgba(0,0,0,.28); }
 ::-webkit-scrollbar-thumb{ background:rgba(255,255,255,.18); border:2px solid transparent; background-clip:padding-box; }
 ::-webkit-scrollbar-thumb:hover{ background:rgba(255,255,255,.34); background-clip:padding-box; }
 ::-webkit-scrollbar-corner{ background:transparent; }
 
-/* ============================================================
-   泡(グラス)テクスチャ — iOS26風。重いので要所だけ
-   ============================================================ */
+/* bubbleTexture */
 .yk-glass{
   position:relative;
   background:
@@ -68,7 +60,7 @@ body{
     inset 1px 0 0 rgba(255,255,255,.10),
     0 12px 40px rgba(0,0,0,.55);
 }
-/* 泡の鏡面ハイライト（上面の光沢） */
+/* bubbleHighLight */
 .yk-glass::before{
   content:""; position:absolute; inset:0; pointer-events:none;
   background:
@@ -78,9 +70,7 @@ body{
 }
 .yk-glass.thin{ backdrop-filter:blur(10px) saturate(150%); -webkit-backdrop-filter:blur(10px) saturate(150%); }
 
-/* ============================================================
-   デスクトップ
-   ============================================================ */
+/* desktop */
 #yk-root{ position:fixed; inset:0; overflow:hidden; }
 #yk-wallpaper{ position:absolute; inset:0; z-index:0; }
 #yk-wallpaper canvas{ display:block; width:100%; height:100%; }
@@ -88,7 +78,7 @@ body{
 #yk-windows{ position:absolute; inset:0; z-index:2; pointer-events:none; }
 #yk-windows > .yk-win{ pointer-events:auto; }
 
-/* デスクトップアイコン */
+/* icon */
 #yk-icons{ position:absolute; inset:0; padding:8px; display:flex; flex-direction:column; flex-wrap:wrap;
            align-content:flex-start; gap:2px; z-index:1; }
 .yk-dicon{
@@ -102,9 +92,7 @@ body{
 .yk-dicon .nm{ font-size:11px; line-height:13px; max-height:26px; overflow:hidden; word-break:break-all;
                text-shadow:0 1px 3px #000,0 0 8px #000; }
 
-/* ============================================================
-   ウィンドウ
-   ============================================================ */
+/* window */
 .yk-win{
   position:absolute; display:flex; flex-direction:column; min-width:220px; min-height:120px;
   background:var(--panel2);
@@ -157,9 +145,7 @@ body{
 .yk-rz.sw{ left:-3px; bottom:-3px; width:10px; height:10px; cursor:nesw-resize; }
 .yk-rz.se{ right:-3px; bottom:-3px; width:10px; height:10px; cursor:nwse-resize; }
 
-/* ============================================================
-   タスクバー / スタートメニュー
-   ============================================================ */
+/* tb->startmenu */
 #yk-taskbar{
   position:absolute; left:0; right:0; bottom:0; height:var(--tb-h); z-index:60;
   display:flex; align-items:center; gap:2px; padding:0 4px;
@@ -218,9 +204,7 @@ body{
 #yk-startmenu .sm-user .av{ width:24px; height:24px; display:flex; align-items:center; justify-content:center;
   background:linear-gradient(135deg,var(--accent),var(--accent2)); color:#000; font-weight:800; font-size:12px; }
 
-/* ============================================================
-   共通ウィジェット
-   ============================================================ */
+/* common */
 .yk-btn{
   display:inline-flex; align-items:center; justify-content:center; gap:5px;
   min-height:24px; padding:3px 11px; font:inherit; font-size:12px; color:var(--text);
@@ -313,9 +297,7 @@ input[type=checkbox],input[type=radio]{ accent-color:var(--accent); width:14px; 
 .yk-tab:hover{ background:rgba(255,255,255,.08); color:var(--text); }
 .yk-tab.on{ background:rgba(255,255,255,.09); color:var(--text); border-bottom-color:var(--accent); }
 
-/* ============================================================
-   コンテキストメニュー / ダイアログ / トースト
-   ============================================================ */
+/* context / dialogue / toast */
 #yk-menu{ position:fixed; z-index:9000; min-width:170px; padding:4px; display:none; }
 #yk-menu.on{ display:block; }
 .yk-mi{ display:flex; align-items:center; gap:8px; padding:5px 10px; font-size:12px; cursor:default; white-space:nowrap; }
@@ -326,7 +308,7 @@ input[type=checkbox],input[type=radio]{ accent-color:var(--accent); width:14px; 
 .yk-mi .kb{ margin-left:auto; color:var(--dim); font-size:10.5px; padding-left:18px; }
 .yk-msep{ height:1px; background:var(--line); margin:4px 2px; }
 
-/* BIOS(9800)より必ず上。ここが下だと起動中のプロンプトが押せなくなる */
+/* BIOS(over 9800) */
 #yk-modal{ position:fixed; inset:0; z-index:9900; display:none; align-items:center; justify-content:center;
            background:rgba(0,0,0,.5); backdrop-filter:blur(3px); -webkit-backdrop-filter:blur(3px); }
 #yk-modal.on{ display:flex; }
@@ -347,9 +329,7 @@ input[type=checkbox],input[type=radio]{ accent-color:var(--accent); width:14px; 
 .yk-toast.ok{ border-left-color:var(--ok); }
 @keyframes ykin{ from{ opacity:0; transform:translateX(14px); } to{ opacity:1; transform:none; } }
 
-/* ============================================================
-   BIOS / 起動画面
-   ============================================================ */
+/* bios */
 #yk-bios{
   position:fixed; inset:0; z-index:9800; background:#000; color:#cfe3ff; font-family:var(--mono);
   font-size:13.5px; line-height:1.55; padding:26px 30px; overflow:auto; display:none;
@@ -373,7 +353,7 @@ input[type=checkbox],input[type=radio]{ accent-color:var(--accent); width:14px; 
 #yk-bios .bar{ height:6px; background:#101823; border:1px solid #23324a; margin:10px 0 4px; max-width:520px; }
 #yk-bios .bar > i{ display:block; height:100%; background:linear-gradient(90deg,var(--accent),var(--accent2)); width:0%; }
 
-/* ---------- コンソール(プロセス出力) ---------- */
+/* csr */
 .yk-console{
   flex:1; min-height:0; overflow:auto; padding:6px 9px; font-family:var(--mono); font-size:12.5px;
   line-height:1.42; white-space:pre-wrap; word-break:break-all; background:#05070c;
@@ -390,7 +370,7 @@ input[type=checkbox],input[type=radio]{ accent-color:var(--accent); width:14px; 
                  overflow:hidden; }
 .yk-canvas-wrap canvas{ image-rendering:pixelated; max-width:100%; max-height:100%; }
 
-/* 範囲選択(ラバーバンド) */
+/* labber */
 .yk-marquee{
   position:absolute; z-index:40; pointer-events:none;
   background:rgba(255,47,208,.16);
